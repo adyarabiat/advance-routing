@@ -1,7 +1,7 @@
 import classes from "./QuoteItem.module.css";
 
 import { Link } from "react-router-dom";
-import HighlightedQuote from "./HighlightedQuote";
+
 const QuoteItem = (props) => {
    return (
       <li className={classes.item}>
