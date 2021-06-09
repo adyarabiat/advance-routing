@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Route, Link } from "react-router-dom";
+import { useParams, Route, Link, useRouteMatch } from "react-router-dom";
 import Comments from "../components/comments/Comments";
 import HighlightedQuote from "../components/quotes/HighlightedQuote";
 
@@ -8,10 +8,12 @@ const DUMMY_QUOTES = [
    { id: "q2", author: "Ady", text: "Learning React Native is fun!" },
 ];
 const QuoteDetails = () => {
+   const match = useRouteMatch();
    const param = useParams();
 
+   console.log(match);
+
    const quote = DUMMY_QUOTES.find((quote) => {
-      console.log(quote);
       return quote.id === param.quote;
    });
 
@@ -24,18 +26,15 @@ const QuoteDetails = () => {
       <React.Fragment>
          <HighlightedQuote text={quote.text} author={quote.author} />
 
-         <Route path={`/quotes/${param.quote}`} exact>
+         <Route path={`${match.path}`} exact>
             <div className="centered">
-               <Link
-                  className="btn--flat"
-                  to={`/quotes/${param.quote}/comments`}
-               >
+               <Link className="btn--flat" to={`${match.url}/comments`}>
                   Add Comment
                </Link>
             </div>
          </Route>
 
-         <Route path={`/quotes/${param.quote}/comments`}>
+         <Route path={`${match.path}/comments`}>
             <Comments />
          </Route>
       </React.Fragment>
